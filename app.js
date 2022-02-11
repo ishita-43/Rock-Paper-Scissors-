@@ -11,13 +11,13 @@ const RESULT_COMPUTER_WINS= 'COMPUTER_WINS';
 let gameIsRunning = false;
 
 const getPlayerChoice = () => {
-    const selection = prompt('${ROCK}, ${PAPER} or ${SCISSORS}?',"").toUpperCase();
+    const selection = prompt(`${ROCK}, ${PAPER} or ${SCISSORS}?`,"").toUpperCase();
     if(
-        selectiion !== ROCK &&
+        selection !== ROCK &&
         selection !== PAPER &&
         selection !== SCISSORS
         ){
-            alert('Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you');
+            alert(`Invalid choice! We chose ${DEFAULT_USER_CHOICE} for you`);
         return;
         }
         return  selection;
@@ -36,15 +36,15 @@ const getComputerChoice = () => {
 
 // ANOTHER WAY  FOR WRITING ANONYMOUS FUNCTION IS BY REMOVING FUNCTION AND AFTER ARGUMENT WRITE ARROW ITS CALLED ARROW FUCNTION 
 // MUST STORE IN SOME VARIABLE  BIT SORTER , 
-const getWinner = (cChoice, pChoice) => {
+const getWinner = (cChoice, pChoice = DEFAULT_USER_CHOICE) => 
     // CAN OMMIT RETURN WORD AS IT RETUN ONLY ONE STATEMENT 
     cChoice === pChoice 
         ? RESULT_DRAW
-        :  ( cChoice === PAPER && pChoice === ) ||
-        cChoice === SCISSORS && pChoice === PAPER ||
-        cChoice === ROCK && pChoice === SCISSORS
-        ? RESULT_COMPUTER_WINS
-        : RESULT_PLAYER_WINS
+        :  (cChoice === ROCK && pChoice === PAPER ) ||
+        (cChoice === PAPER && pChoice === SCISSORS )||
+        (cChoice === SCISSORS && pChoice === ROCK)
+        ? RESULT_PLAYER_WINS
+        : RESULT_COMPUTER_WINS;
     // {
     
     
@@ -57,9 +57,9 @@ const getWinner = (cChoice, pChoice) => {
     // ){
     //     return RESULT_COMPUTER_WINS;
     // } else RESULT_PLAYER_WINS;
-};
 
-startGameBtn.addEventListner('click', () => {
+
+startGameBtn.addEventListener('click', () => {
     if(gameIsRunning){
         return;
     }
@@ -76,15 +76,44 @@ startGameBtn.addEventListner('click', () => {
     }
     // console.log(winner);
     
-    let message = 'You picked ${playerChoice}, computer picked ${computerChoice}, therefore you ';
+    let message = `You picked ${playerChoice || DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore you `;
     if(winner === RESULT_DRAW){
         message = message + 'had a draw.';
     } else if (winner === RESULT_PLAYER_WINS){
-        message = message + 'won.';
-    } else (winner === RESULT_COMPUTER_WINS){
-        message = messaage + 'lost.';
+        message = message + 'win.';
+    } else {
+        message = message + 'lost.';
     }
     alert(message);
     gameIsRunning = false;
 });
 
+//  NOT RELATED TO GAME
+
+// const sumUp = (a,b,...numbers) => {
+//     // available only inside of this fumction acan be any tyoe of function inside fumction
+//     const validateNumber = (number) =>{
+//         return isNaN(number) ? 0 : number;
+
+//     };
+//     let sum = 0;
+//     for(const num of numbers){
+//         sum+=validateNumber(num);
+//     }
+//     return sum;
+// };
+
+// const subtractUp = function (){
+//     let sum = 0;
+//     for(const num of argument){ // don't use it 
+//         sum-=num;
+//     }
+//     return sum;
+// };
+
+// // console.log(sumUp([1,5,10,-3,6,10]));
+// console.log(sumUp(1,5,10,-3,6,10));
+// console.log(subtractUp(29,-4,2333,5,67,10));
+
+// ... spread operator in array or in object when use to copy the valuse in another object instead of manuplating it in the same array.
+// ... rest operator always the last argument and only one rest parameter in that merges all argument into an array inside of an function
